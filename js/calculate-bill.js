@@ -12,32 +12,46 @@
 
 //link the function to a click event on the calculate button
 
-var billStringElement = document.querySelector(".billStrng");
+var calculateBtnElement = document.querySelector(".calculateBtn");
+var billTotalElement = document.querySelector(".billTotal");
+var billStringElement = document.querySelector(".billString");
 
 function calculateBtnClicked(){
-}
 
-calculateBtn.addEventListener('click', calculateBtnClicked);
+  var billStringValues = billStringElement.value;
 
-function totalPhoneBill(str) {
-    var totalSms = 0;
-  var totalCalls = 0;
-    var str2 = str.split(', ');
-    console.log(str2);
-    for (var i=0; i<str2.length; i++) {
-      var str3 = str2[i];
-      if (str3 == 'sms') {
-        totalSms++
+  var billItems = billStringValues.split(",");
+
+  var billTotal = 0;
+
+  for (var i=0;i<billItems.length;i++){
+      var billItem = billItems[i].trim();
+      if (billItem === "call"){
+          billTotal += 2.75;
       }
-      else if (str3 == 'call') {
-      totalCalls++
+      else if (billItem === "sms"){
+          billTotal += 0.75;
       }
   }
-    return ('R' + (totalSms*0.65 + totalCalls*2.75).toFixed(2));
+  if(billTotal >= 20){
+    billTotalElement.classList.add('warning')
+  }
+  if(billTotal >= 30){
+    billTotalElement.classList.add('danger')
+  }
+  
+  if (billTotal <= 20){
+    billTotalElement.classList.remove('warning')
+  }
+  
+  if(billTotal <= 30){
+    billTotalElement.classList.remove('danger')
+  }
+
+  var roundedBillTotal = billTotal.toFixed(2);
+  billTotalElement.innerHTML = roundedBillTotal;
+
+
 }
 
-function calculateBtnClicked(){
-    var billString = billStringField.value;   
-    var roundedBillTotal = totalPhoneBill(billString);
-    billTotalElement.innerHTML = roundedBillTotal;
-}
+calculateBtnElement.addEventListener('click', calculateBtnClicked);  
