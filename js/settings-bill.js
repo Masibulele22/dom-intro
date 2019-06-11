@@ -66,31 +66,15 @@ function checkSettingsBill(){
 
 function updateSettingsButton(){    
     var warningLevelValue = warningLevelSettingElem.value;
-    var criticalLevelValue = criticalLevelSettingElem.value;
-    
-    if (totalCost3 < criticalLevelSettingElem.value){
-        totalSettingsElem.classList.add("danger");
-        addBtnSettingsElem.disabled=false;
-    }
-    if (totalCost3 >= criticalLevelSettingElem.value){
-        totalSettingsElem.classList.add("danger");
-        addBtnSettingsElem.disabled=true;
-    }
 
-    if (settingsBillAddBtnElem){
-        totalSettingsElem.classList.remove("warning");
+     if (updateSettingsElem){
         totalSettingsElem.classList.remove("danger");
-        // settingsBillAddBtnElem.disabled = false;
+        addBtnSettingsElem.disabled=false;
+     }
 
-        if (totalCost3 <= warningLevelValue){
-            totalSettingsElem.classList.remove("danger");
-        }
-
-        else if (totalCost3 <= criticalLevelValue){
-            totalSettingsElem.classList.remove("warning");
-        }
+    if(totalCost3 < warningLevelValue){
+        totalSettingsElem.classList.remove("warning");
     }
 }
-
 addBtnSettingsElem.addEventListener('click', checkSettingsBill);
 updateSettingsElem.addEventListener('click', updateSettingsButton);
